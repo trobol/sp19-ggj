@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Ground
+=======
+  - GM
+>>>>>>> e65a42d... Adding WIP Checkpoint Scripts
   layers:
   - Default
   - TransparentFX
