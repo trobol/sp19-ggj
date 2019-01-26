@@ -46,7 +46,7 @@ public class PlayerWalk : MonoBehaviour
 			}
 		}
 		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
-		transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, 0);
+		transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, transform.rotation.eulerAngles.z);
 		CheckInput();
 	}
 	public bool rotating = false;
