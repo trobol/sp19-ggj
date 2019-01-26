@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6244502115385401406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6244502115385401405}
+  - component: {fileID: 6244502115385401404}
+  - component: {fileID: 6244502115385401407}
+  m_Layer: 0
+  m_Name: Hill
+  m_TagString: Hill
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6244502115385401405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244502115385401406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0577, y: 0.101, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &6244502115385401404
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244502115385401406}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: e888ee0fed7532445982d762403a1799, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -10.25205, y: 2.5266218}
+  - {x: -10.0626, y: 0.8331897}
+  - {x: -9.478523, y: -0.6840467}
+  - {x: -8.499819, y: -2.0250876}
+  - {x: -7.1264877, y: -3.1899326}
+  - {x: -5.3585296, y: -4.1785817}
+  - {x: -3.1959436, y: -4.991036}
+  - {x: -0.63873196, y: -5.6272936}
+  - {x: 2.3131087, y: -6.087356}
+  - {x: 5.659574, y: -6.3712225}
+  - {x: 9.400669, y: -6.4788938}
+--- !u!114 &6244502115385401407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244502115385401406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce6ba762795188449449bf2d514481e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {x: 4.74, y: 0.77}
+  control: {x: 4.47, y: 0}
+  end: {x: -18.09, y: 0}
+  height: 1
+  controlPoints:
+  - {x: -10.25205, y: 2.5266218}
+  - {x: -10.2913685, y: -6.3810277}
+  - {x: 9.400669, y: -6.4788938}
+  steps: 10
