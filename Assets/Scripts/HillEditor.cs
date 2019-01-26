@@ -17,18 +17,18 @@ public class HillEditor : Editor
 		handleTransform = hill.transform;
 		handleRotation = Tools.pivotRotation == PivotRotation.Local ?
 			handleTransform.rotation : Quaternion.identity;
-
-		Vector2 start = ShowPoint(0);
-		Vector2 control = ShowPoint(1);
-		Vector2 end = ShowPoint(2);
+		Vector2 top = ShowPoint(0);
+		Vector2 start = ShowPoint(1);
+		Vector2 control = ShowPoint(2);
+		Vector2 end = ShowPoint(3);
 
 		Handles.color = Color.gray;
 		Handles.DrawLine(start, control);
 		Handles.DrawLine(control, end);
 
-		Handles.color = Color.white;
+		Handles.color = Color.red;
 		Vector2[] points = hill.ComputePoints();
-		Vector2 lineStart = start,
+		Vector2 lineStart = top,
 		lineEnd;
 		for (int i = 1; i <= hill.steps; i++)
 		{

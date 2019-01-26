@@ -22,24 +22,19 @@ public class PlayerWalkSwim : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
-    {
 
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D c)
     {
-        isColliding = true;
-        if(other.tag == "Water")
+        if(c.tag == "Water")
         {
             swimming = true;
         }
+
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D c)
     {
-        isColliding = false;
-        if(other.tag == "Water")
+        if(c.tag == "Water")
         {
             swimming = false;
         }

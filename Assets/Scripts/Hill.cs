@@ -12,7 +12,7 @@ public class Hill : MonoBehaviour
 	public Vector2 start, control, end;
 
 	public float height;
-
+	public float speed = 1;
 	EdgeCollider2D collider;
 	private void OnEnable()
 	{
@@ -20,20 +20,22 @@ public class Hill : MonoBehaviour
 	}
 
 	public Vector2[] controlPoints = {
+		new Vector2(-1,-1),
 		new Vector2(0,0),
 		new Vector2(1,1),
 		new Vector2(2, 0)
 	};
 
 	private Vector2[] points;
-	public int steps;
+	public int steps = 10;
 	public Vector2[] ComputePoints()
 	{
 		points = new Vector2[steps + 1];
-		for (int i = 0; i <= steps; i++)
+		points[0] = controlPoints[0];
+		for (int i = 1; i <= steps; i++)
 		{
 			float t = i / (float)steps;
-			points[i] = Vector3.Lerp(Vector3.Lerp(controlPoints[0], controlPoints[1], t), Vector3.Lerp(controlPoints[1], controlPoints[2], t), t);
+			points[i] = Vector3.Lerp(Vector3.Lerp(controlPoints[1], controlPoints[2], t), Vector3.Lerp(controlPoints[2], controlPoints[3], t), t);
 		}
 		collider.points = points;
 		return points;
@@ -41,15 +43,20 @@ public class Hill : MonoBehaviour
 
 	public float PosToT(Vector2 pos)
 	{
-		float distance = Mathf.Abs(controlPoints[2].x - controlPoints[0].x);
+		float distance = Mathf.Abs(controlPoints[3].x - controlPoints[1].x);
 
-		return Mathf.Abs(transform.TransformPoint(controlPoints[0]).x - pos.x) / distance;
+		return Mathf.Abs(transform.TransformPoint(controlPoints[1]).x - pos.x) / distance;
 	}
 	public Vector2 GetPoint(float t)
 	{
-		return transform.TransformPoint(Vector3.Lerp(Vector3.Lerp(controlPoints[0], controlPoints[1], t), Vector3.Lerp(controlPoints[1], controlPoints[2], t), t));
+		return transform.TransformPoint(Vector3.Lerp(Vector3.Lerp(controlPoints[1], controlPoints[2], t), Vector3.Lerp(controlPoints[2], controlPoints[3], t), t));
 	}
 
+	public float GetRot(float t)
+	{
+		Vector2 derivative = ((1 - t) * (1 - t) * 2 * (controlPoints[2] - controlPoints[1])) + 2 * t * (1 - t) * 2 * (controlPoints[3] - controlPoints[2]);
+		return 1;
+	}
 	//Everything after this will only execute outside of editor mode
 #if !UNITY_EDITOR
     

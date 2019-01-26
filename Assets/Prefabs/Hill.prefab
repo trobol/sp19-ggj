@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6244502115385401407}
   m_Layer: 0
   m_Name: Hill
-  m_TagString: Untagged
+  m_TagString: Hill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,26 +39,26 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6244502115385401406}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e888ee0fed7532445982d762403a1799, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -3.3207972, y: 0}
-  - {x: -2.8010714, y: -0.50618595}
-  - {x: -2.2043967, y: -0.89988613}
-  - {x: -1.5307732, y: -1.1811005}
-  - {x: -0.7802007, y: -1.3498292}
-  - {x: 0.047320724, y: -1.406072}
-  - {x: 0.95179135, y: -1.3498291}
-  - {x: 1.9332105, y: -1.1811005}
-  - {x: 2.991579, y: -0.8998861}
-  - {x: 4.126896, y: -0.506186}
-  - {x: 5.3391623, y: 0}
+  - {x: -10.25205, y: 2.5266218}
+  - {x: -10.0626, y: 0.8331897}
+  - {x: -9.478523, y: -0.6840467}
+  - {x: -8.499819, y: -2.0250876}
+  - {x: -7.1264877, y: -3.1899326}
+  - {x: -5.3585296, y: -4.1785817}
+  - {x: -3.1959436, y: -4.991036}
+  - {x: -0.63873196, y: -5.6272936}
+  - {x: 2.3131087, y: -6.087356}
+  - {x: 5.659574, y: -6.3712225}
+  - {x: 9.400669, y: -6.4788938}
 --- !u!114 &6244502115385401407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,8 +74,9 @@ MonoBehaviour:
   start: {x: 4.74, y: 0.77}
   control: {x: 4.47, y: 0}
   end: {x: -18.09, y: 0}
+  height: 1
   controlPoints:
-  - {x: -3.3207972, y: 0}
-  - {x: -0.91454107, y: -2.812144}
-  - {x: 5.3391623, y: 0}
+  - {x: -10.25205, y: 2.5266218}
+  - {x: -10.2913685, y: -6.3810277}
+  - {x: 9.400669, y: -6.4788938}
   steps: 10
