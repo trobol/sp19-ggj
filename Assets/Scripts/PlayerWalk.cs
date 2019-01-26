@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//TODO: CANNOT SLIDE AND SWIM AT THE SAME TIME
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerWalk : MonoBehaviour
 {
@@ -36,17 +38,19 @@ public class PlayerWalk : MonoBehaviour
 		//end
 			SlideUpdate();
 
-			if (!sliding)
-			{
-				visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
-			}
+			
 			if (rb2D.isKinematic && hill)
 			{
 				HillUpdate();
 			}
 		}
-		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
-		transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, transform.rotation.eulerAngles.z);
+		if(!sliding) {
+			direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
+			transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, transform.rotation.eulerAngles.z);
+			
+			visuals.transform.localRotation = Quaternion.AxisAngle(Vector3.forward, Mathf.Abs(Mathf.Sin(Time.time * 30)) * 90 * Mathf.Abs(move.x));
+			visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
+		}
 		CheckInput();
 	}
 	public bool rotating = false;
