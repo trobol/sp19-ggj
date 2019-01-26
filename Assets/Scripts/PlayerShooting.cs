@@ -49,43 +49,45 @@ public class PlayerShooting : MonoBehaviour
 
     private float timeToShakeEnd = 0;
 
+    private GameObject storeBullets;
+
     [HideInInspector]
     public int i;         
 
-    private Vector3 mousePos,
-                    adjustedPos,
-                    randomPos;
+    private Vector3 mousePos, //Mouse Position when mouse is clicked
+                    adjustedPos, //The adjusted mouse position
+                    randomPos; //Random Spread
 
-    private float randomX,
-                  randomY;
-
-    [HideInInspector]
-    public Transform camTransform;
-
-    private float shake = 0f;
-
-    private Vector3 initialPosition;
+    private float randomX, //Random X change
+                  randomY; //Random Y change
 
     [HideInInspector]
-    public Rigidbody2D rb2d;
+    public Transform camTransform; //Camera Transformation for Screenshake
+
+    private Vector3 initialPosition; //Initial camera Position
 
     [HideInInspector]
-    public bool shaking = false;
+    public Rigidbody2D rb2d; //Player Rigidbody
 
-    private Vector2 shakingCamLoc;
+    [HideInInspector]
+    public bool shaking = false; //If the screen should be shaking
+
+    private Vector2 shakingCamLoc; //Where the camera should move to
 
     // Start is called before the first frame update
     void Start()
     {
-        attack = attackTypes.snowBall;
-        currAttack = 0;
+        attack = attackTypes.snowBall; //Set first attack
+        currAttack = 0; 
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         camTransform = Camera.main.transform;
+        storeBullets = GameObject.Find("_bullets");
     }
 
     // Update is called once per frame
     void Update()
     {
+        //If the screen should be shaking, make it shake
         if (!shaking)
         {
             initialPosition = camTransform.localPosition;
@@ -95,17 +97,20 @@ public class PlayerShooting : MonoBehaviour
             screenShake();
         }
 
+        //Change Current Weapon
         if(Time.time > timeToNextAttack)
         {
             changeAttack();
         }
 
+        //If Left Click is pushed down and attack is not on cooldown
         if (Input.GetMouseButton(0) && Time.time > timeToNextAttack)
         {
-            mousePos = Input.mousePosition;
-            adjustedPos = Camera.main.ScreenToWorldPoint(mousePos);
-            adjustedPos.z = 0;
-            Debug.Log(adjustedPos);
+            mousePos = Input.mousePosition; //Get Mouse Position
+            adjustedPos = Camera.main.ScreenToWorldPoint(mousePos); //Adjusted Position
+            adjustedPos.z = 0; //Set the z to zero
+            
+            //Check what the current attack state is and do attack
             switch (attack)
             {
                 case attackTypes.snowBall:
@@ -133,7 +138,7 @@ public class PlayerShooting : MonoBehaviour
     void fireSnowball(float attackRate, Vector3 mouseLoc)
     {
         timeToNextAttack = Time.time + attackRate;
-        GameObject bullet = Instantiate(bullets[0], firePoint.transform.position, firePoint.transform.rotation);
+        GameObject bullet = Instantiate(bullets[0], firePoint.transform.position, firePoint.transform.rotation, storeBullets.transform);
         bullet.transform.right = mouseLoc - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[0] * bullet.transform.right;
         kickBack(knockBacks[0], mouseLoc);
@@ -143,12 +148,12 @@ public class PlayerShooting : MonoBehaviour
     }
 
     /*Fires Incicle in direction of mouse location
-      Improved Version of the Snowball    
-    */
+     *Improved Version of the Snowball    
+     */
     void fireIcicle(float attackRate, Vector3 mouseLoc)
     {
         timeToNextAttack = Time.time + attackRate;
-        GameObject bullet = Instantiate(bullets[1], firePoint.transform.position, firePoint.transform.rotation);
+        GameObject bullet = Instantiate(bullets[1], firePoint.transform.position, firePoint.transform.rotation, storeBullets.transform);
         bullet.transform.right = adjustedPos - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[1] * bullet.transform.right;
         kickBack(knockBacks[1], mouseLoc);
@@ -156,14 +161,17 @@ public class PlayerShooting : MonoBehaviour
         shaking = true;
         Destroy(bullet, 5f);
     }
-
+    
+    /*Fast Firing snowball gun
+     *Sway the bullets so they are not all on target
+     */
     void fireSnowGun(float attackRate, Vector3 mouseLoc)
     {
         timeToNextAttack = Time.time + attackRate;
         randomX = Random.Range(-snowGunSpread, snowGunSpread);
         randomY = Random.Range(-snowGunSpread, snowGunSpread);
         randomPos = new Vector3(adjustedPos.x + randomX, adjustedPos.y + randomY, 0);
-        GameObject bullet = Instantiate(bullets[2], firePoint.transform.position, firePoint.transform.rotation);
+        GameObject bullet = Instantiate(bullets[2], firePoint.transform.position, firePoint.transform.rotation, storeBullets.transform);
         bullet.transform.right = randomPos - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[2] * bullet.transform.right;
         kickBack(knockBacks[2], mouseLoc);
@@ -173,19 +181,25 @@ public class PlayerShooting : MonoBehaviour
 
     }
 
+    /*Fire a dead fish with angle equal to mouse direction
+     *This projectile arcs and is effected by gravity
+     */
     void fireDeadFish(float attackRate, Vector3 mouseLoc)
     {
         timeToNextAttack = Time.time + attackRate;
-        GameObject bullet = Instantiate(bullets[3], firePoint.transform.position, firePoint.transform.rotation);
-        bullet.transform.right = adjustedPos - transform.position;
+        GameObject bullet = Instantiate(bullets[3], firePoint.transform.position, firePoint.transform.rotation, storeBullets.transform);
+        bullet.transform.right = adjustedPos;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[3] * bullet.transform.right;
         kickBack(knockBacks[3], mouseLoc);
-        shake = shakeDuration[3];
         timeToShakeEnd = Time.time + shakeDuration[currAttack];
         shaking = true;
         Destroy(bullet, 2f);
     }
 
+    /*Shotgun of fire of snowballs
+     *Randomize the spread based on bulletspread
+     *Can change number of bullets in the shotgun spread
+     */
     void fireSnowCluster(float attackRate, Vector3 mouseLoc, int bulletCount)
     {
         timeToNextAttack = Time.time + attackRate;
@@ -194,7 +208,7 @@ public class PlayerShooting : MonoBehaviour
             randomX = Random.Range(-bulletSpread, bulletSpread);
             randomY = Random.Range(-bulletSpread, bulletSpread);
             randomPos = new Vector3(adjustedPos.x + randomX, adjustedPos.y + randomY, 0);
-            GameObject bullet = Instantiate(bullets[4], firePoint.transform.position, firePoint.transform.rotation);
+            GameObject bullet = Instantiate(bullets[4], firePoint.transform.position, firePoint.transform.rotation, storeBullets.transform);
             bullet.transform.right = randomPos - transform.position;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[4] * bullet.transform.right;
             kickBack(knockBacks[4], mouseLoc);
@@ -204,6 +218,7 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    //Change the currently set attack
     void changeAttack()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -234,6 +249,7 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    //Knock back player in oppisite direction of where they shot
     void kickBack(float kick, Vector3 mouseLoc)
     {
         mouseLoc.z = 0;
@@ -242,6 +258,7 @@ public class PlayerShooting : MonoBehaviour
 
     }
 
+    //Make the screen shake
     void screenShake()
     {
         if (Time.time > timeToShakeEnd)

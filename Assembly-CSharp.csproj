@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Gyser.cs" />
     <Compile Include="Assets\Scripts\Hill.cs" />
     <Compile Include="Assets\Scripts\HillEditor.cs" />
+    <Compile Include="Assets\Scripts\PlayerDirection.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\PlayerWalk.cs" />
     <Compile Include="Assets\Scripts\SmoothCameraFollow.cs" />
