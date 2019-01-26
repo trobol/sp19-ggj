@@ -48,7 +48,7 @@ public class PlayerWalk : MonoBehaviour
 			direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
 			transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, transform.rotation.eulerAngles.z);
 			
-			visuals.transform.localRotation = Quaternion.AxisAngle(Vector3.forward, Mathf.Abs(Mathf.Sin(Time.time * 30)) * 90 * Mathf.Abs(move.x));
+			//visuals.transform.localRotation = Quaternion.AxisAngle(Vector3.forward, Mathf.Abs(Mathf.Sin(Time.time * 30)) * 90 * Mathf.Abs(move.x));
 			visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
 		}
 		CheckInput();
