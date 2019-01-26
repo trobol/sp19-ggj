@@ -22,21 +22,23 @@ public class PlayerWalk : MonoBehaviour
     {
 
     }
-    public Vector2 test;
+    
+    int rotDirection = -1;
+    float rotTarget = 0;
     void Update()
     {
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, Mathf.Infinity, LayerMask.GetMask(new [] {"Ground"}));
         grounded = hit.distance < 0.8f;
-        test = hit.normal;
         if(sliding) {
-            if(grounded) {
-                transform.rotation = Quaternion.FromToRotation(Vector3.right, Quaternion.Euler(0, 0, 90) * hit.normal);
-            } else {
-                if(false) {
-                    transform.Rotate(new Vector3(0, 0, rotateBy));
-                }
-
+            
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, -90), rotateBy * Time.deltaTime);
+            if(transform.rotation.eulerAngles.z == rotTarget) {
+                Debug.Log("Hit Target");
             }
+            if(rb2D.velocity.x == 0) {
+                
+            }
+            Debug.Log(transform.rotation.eulerAngles.z);
         }
         if(Input.GetKeyDown(KeyCode.LeftShift)) {
             sliding = true;
@@ -64,6 +66,7 @@ public class PlayerWalk : MonoBehaviour
     {   
         if(!sliding) {
             rb2D.velocity = new Vector2(xMove, rb2D.velocity.y);
+            rotTarget = 90 * rotDirection;
         }
     }
     private void OnCollisionEnter2D(Collision2D c) {
