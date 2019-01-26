@@ -47,6 +47,8 @@ public class PlayerShooting : MonoBehaviour
 
     private float timeToNextAttack = 0; //How much longer until player can attack again
 
+    private float timeToShakeEnd = 0;
+
     [HideInInspector]
     public int i;         
 
@@ -129,13 +131,13 @@ public class PlayerShooting : MonoBehaviour
 
     //Fires Snowball in direction of mouse location
     void fireSnowball(float attackRate, Vector3 mouseLoc)
-    {   
+    {
         timeToNextAttack = Time.time + attackRate;
         GameObject bullet = Instantiate(bullets[0], firePoint.transform.position, firePoint.transform.rotation);
         bullet.transform.right = mouseLoc - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[0] * bullet.transform.right;
         kickBack(knockBacks[0], mouseLoc);
-        shake = shakeDuration[0];
+        timeToShakeEnd = Time.time + shakeDuration[currAttack];
         shaking = true;
         Destroy(bullet, 5f);
     }
@@ -150,7 +152,7 @@ public class PlayerShooting : MonoBehaviour
         bullet.transform.right = adjustedPos - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[1] * bullet.transform.right;
         kickBack(knockBacks[1], mouseLoc);
-        shake = shakeDuration[1];
+        timeToShakeEnd = Time.time + shakeDuration[currAttack];
         shaking = true;
         Destroy(bullet, 5f);
     }
@@ -165,7 +167,7 @@ public class PlayerShooting : MonoBehaviour
         bullet.transform.right = randomPos - transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[2] * bullet.transform.right;
         kickBack(knockBacks[2], mouseLoc);
-        shake = shakeDuration[2];
+        timeToShakeEnd = Time.time + shakeDuration[currAttack];
         shaking = true;
         Destroy(bullet, 2.5f);
 
@@ -179,6 +181,7 @@ public class PlayerShooting : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[3] * bullet.transform.right;
         kickBack(knockBacks[3], mouseLoc);
         shake = shakeDuration[3];
+        timeToShakeEnd = Time.time + shakeDuration[currAttack];
         shaking = true;
         Destroy(bullet, 2f);
     }
@@ -195,7 +198,7 @@ public class PlayerShooting : MonoBehaviour
             bullet.transform.right = randomPos - transform.position;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed[4] * bullet.transform.right;
             kickBack(knockBacks[4], mouseLoc);
-            shake = shakeDuration[4];
+            timeToShakeEnd = Time.time + shakeDuration[currAttack];
             shaking = true;
             Destroy(bullet, 1f);
         }
@@ -241,17 +244,16 @@ public class PlayerShooting : MonoBehaviour
 
     void screenShake()
     {
-        if (shake > 0)
+        if (Time.time > timeToShakeEnd)
         {
-            shakingCamLoc = new Vector2(initialPosition.x, initialPosition.y) + Random.insideUnitCircle * shakeAmount[currAttack];
-            camTransform.localPosition = new Vector3(shakingCamLoc.x, shakingCamLoc.y, initialPosition.z);
-            shake -= Time.deltaTime * shakeDuration[currAttack];
+            camTransform.localPosition = initialPosition;
+            shaking = false;
         }
         else
         {
-            shake = 0f;
-            camTransform.localPosition = initialPosition;
-            shaking = false;
+            Debug.Log("The fuck);                                                             ");
+            shakingCamLoc = new Vector2(initialPosition.x, initialPosition.y) + Random.insideUnitCircle * shakeAmount[currAttack];
+            camTransform.localPosition = new Vector3(shakingCamLoc.x, shakingCamLoc.y, initialPosition.z);
         }
     }
 }
