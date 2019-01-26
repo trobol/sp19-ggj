@@ -7,12 +7,12 @@ public class PlayerWalk : MonoBehaviour
 {
 
 	Rigidbody2D rb2D;
-	float xMove = 0;
+	Vector2 move;
 	public float speed = 5f;
 	public GameObject visuals;
 	public bool sliding = false;
 	public float rotateBy = 10;
-	public Vector2 jumpForce = new Vector2(20, 150);
+	Vector2 jumpForce = new Vector2(200, 200);
 	public bool grounded = false;
 	void Awake()
 	{
@@ -23,34 +23,39 @@ public class PlayerWalk : MonoBehaviour
 	{
 
 	}
-
+	bool swimming = false;
 	public int direction = 1;
 	float rotTime = 0;
 	public float rotTarget = 0;
 	Hill hill = null;
 	void Update()
 	{
-		grounded = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.9f, LayerMask.GetMask(new[] { "Ground" }));
+		//new
+		if (!swimming)
+		{
+		//end
+			SlideUpdate();
 
-		SlideUpdate();
-		if (Input.GetKeyDown(KeyCode.LeftShift))
-		{
-			BeginSlide();
+			if (!sliding)
+			{
+				visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
+			}
+			if (rb2D.isKinematic && hill)
+			{
+				HillUpdate();
+			}
 		}
-		if (!sliding)
-		{
-			visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(xMove));
-		}
-		if (rb2D.isKinematic && hill)
-		{
-			HillUpdate();
-		}
-
+		direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
+		transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, 0);
 		CheckInput();
 	}
 	public bool rotating = false;
 	void SlideUpdate()
 	{
+		if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			BeginSlide();
+		}
 		if (sliding)
 		{
 			Quaternion target = Quaternion.Euler(0, direction > 0 ? 0 : 180, rotTarget);
@@ -93,25 +98,29 @@ public class PlayerWalk : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		grounded = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.9f, LayerMask.GetMask(new[] { "Ground" }));
 		Move();
 	}
 	void CheckInput()
 	{
-		xMove = Input.GetAxis("Horizontal") * speed;
+		//new
+		move.x = Input.GetAxis("Horizontal") * speed;
+		move.y = Input.GetAxis("Vertical") * speed;
+		//end
 	}
 
 	void Move()
 	{
-		if (!sliding && grounded)
-		{
-			rb2D.velocity = new Vector2(xMove, rb2D.velocity.y);
-			if (xMove != 0)
-			{
-				direction = xMove > 0 ? 1 : -1;
 
-				transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, 0);
-			}
+		if (swimming)
+		{
+			rb2D.velocity = move;
 		}
+		else if (!sliding && grounded)
+		{
+			rb2D.velocity = new Vector2(move.x, rb2D.velocity.y);
+		}
+
 	}
 
 	void BeginSlide()
@@ -130,13 +139,30 @@ public class PlayerWalk : MonoBehaviour
 
 	private void OnColliderEnter2D(Collider2D c)
 	{
-		if (c.gameObject.tag == "Hill")
+		if (c.tag == "Hill")
 		{
 			rb2D.isKinematic = true;
 			hill = c.gameObject.GetComponent<Hill>();
 			hillPoint = hill.PosToT(transform.position);
 			hill.speed = Mathf.Abs(rb2D.velocity.x) * Time.fixedDeltaTime;
 			rb2D.velocity = Vector2.zero;
+		}
+	}
+
+	private void OnTriggerStay2D(Collider2D c)
+	{
+		if (c.tag == "Water")
+		{
+			swimming = true;
+		}
+
+	}
+
+	private void OnTriggerExit2D(Collider2D c)
+	{
+		if (c.tag == "Water")
+		{
+			swimming = false;
 		}
 	}
 }

@@ -211,7 +211,6 @@ MonoBehaviour:
   visuals: {fileID: 5008779493966011043}
   sliding: 0
   rotateBy: 250
-  jumpForce: {x: 200, y: 200}
   grounded: 0
   direction: 1
   rotTarget: 0
