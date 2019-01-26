@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gyser : MonoBehaviour
 {
 
-    public float gyserForce = 15f;
+    public float gyserForce = 600f;
     public ParticleSystem ps;
 
     // Start is called before the first frame update
@@ -27,7 +27,7 @@ public class Gyser : MonoBehaviour
         {
             ps.Play();
             rb2D = collision.GetComponent<Rigidbody2D>();
-            Debug.Log("Hit Gyser");
+            //Debug.Log("Hit Gyser");
             rb2D.AddForce(new Vector2(rb2D.velocity.x, gyserForce));
             StartCoroutine(StopParticleSystem());
         }
