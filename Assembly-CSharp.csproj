@@ -53,8 +53,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Gyser.cs" />
      <Compile Include="Assets\Scripts\Hill.cs" />
      <Compile Include="Assets\Scripts\HillEditor.cs" />
+     <Compile Include="Assets\Scripts\PlayerWalk.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Users/thornton.fernbacher/Documents/sp19-ggj/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

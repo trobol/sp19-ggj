@@ -29,7 +29,6 @@ public class Hill : MonoBehaviour
         for (int i = 0; i <= steps; i++) {
             float t = i / (float)steps;
 			points[i] = Vector3.Lerp(Vector3.Lerp(controlPoints[0], controlPoints[1], t), Vector3.Lerp(controlPoints[1], controlPoints[2], t), t);
-            
 		}
         collider.points = points;
         return points;

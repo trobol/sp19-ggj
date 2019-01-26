@@ -29,7 +29,7 @@ public class HillEditor : Editor
         Vector2[] points = hill.ComputePoints();
         Vector2 lineStart = start,
         lineEnd;
-		for (int i = 1; i < hill.steps; i++) {
+		for (int i = 1; i <= hill.steps; i++) {
             lineEnd = handleTransform.TransformPoint(points[i]);
 			Handles.DrawLine(lineStart, lineEnd);
 			lineStart = lineEnd;
