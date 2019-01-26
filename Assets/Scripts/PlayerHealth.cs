@@ -14,7 +14,8 @@ public class PlayerHealth : MonoBehaviour
 
 
     Animator anim;
-    //PlayerMovement playerMovement
+    PlayerWalk playerMovement;
+    PlayerShooting playerShooting;
     public bool damaged = false;
     bool isDead;
 
@@ -23,7 +24,9 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         currentHealth = startingHealth; 
-        //playerMovement = GetComponent <PlayerMovement> ();
+        playerMovement = GetComponent <PlayerWalk> ();
+        playerShooting = GetComponentInChildren<PlayerShooting>();
+
     }
 
 
@@ -48,23 +51,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        // Set the damaged flag so the screen will flash.
         damaged = true;
-
-        // Reduce the current health by the damage amount.
+               
         currentHealth -= amount;
-
-        // Set the health bar's value to the current health.
+                
         healthSlider.value = currentHealth;
 
-        
-        
-
-        // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth <= 0 && !isDead)
         {
-            // ... it should die.
-            Death();
+           Death();
         }
 
 
@@ -75,8 +70,13 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
+        //playerShooting.DisableEffects();
+
         anim.SetTrigger("Die");
 
-        //playerMovement.enabled = false;
+        playerMovement.enabled = false;
+
+        playerMovement.enabled = false;
+        playerShooting.enabled = false;
     }
 } 
