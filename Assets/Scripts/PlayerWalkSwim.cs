@@ -5,8 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerWalkSwim : MonoBehaviour
 {
-
-    bool swimming = false;
+    public bool isColliding = false;
+    public bool swimming = false;
+    float yMove = 0;
+    public float swimSpeed = 10f;
 
     Rigidbody2D rb2D;
     float xMove = 0;
@@ -25,13 +27,19 @@ public class PlayerWalkSwim : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if(other.CompareTag("Water"))
+        isColliding = true;
+        if(other.tag == "Water")
         {
             swimming = true;
         }
-        else
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        isColliding = false;
+        if(other.tag == "Water")
         {
             swimming = false;
         }
@@ -44,27 +52,37 @@ public class PlayerWalkSwim : MonoBehaviour
         {
 
         }
-        //RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, Mathf.Infinity, LayerMask.GetMask(new [] {"Ground"}));
-        //grounded = hit.distance < 0.8f;
-        //test = hit.normal;
-        //if(sliding) {
-        //    if(grounded) {
-        //        transform.rotation = Quaternion.FromToRotation(Vector3.right, Quaternion.Euler(0, 0, 90) * hit.normal);
-        //    } else {
-        //        if(false) {
-        //            transform.Rotate(new Vector3(0, 0, rotateBy));
-        //        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, Mathf.Infinity, LayerMask.GetMask(new[] { "Ground" }));
+            grounded = hit.distance < 0.8f;
+            test = hit.normal;
+            if (sliding)
+            {
+                if (grounded)
+                {
+                    transform.rotation = Quaternion.FromToRotation(Vector3.right, Quaternion.Euler(0, 0, 90) * hit.normal);
+                }
+                else
+                {
+                    if (false)
+                    {
+                        transform.Rotate(new Vector3(0, 0, rotateBy));
+                    }
 
-        //    }
-        //}
-        //if(Input.GetKeyDown(KeyCode.LeftShift)) {
-        //    sliding = true;
-        //    if(grounded) {
-        //        rb2D.AddForce(Vector2.up * jumpForce);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                sliding = true;
+                if (grounded)
+                {
+                    rb2D.AddForce(Vector2.up * jumpForce);
 
-        //    }
-        //}
-        
+                }
+            }
+        }
+
 
         CheckInput();   
     }
@@ -76,13 +94,29 @@ public class PlayerWalkSwim : MonoBehaviour
 
     void CheckInput()
     {
-        xMove = Input.GetAxis("Horizontal") * speed;
+        if (swimming == true)
+        {
+            xMove = Input.GetAxis("Horizontal") * swimSpeed;
+            yMove = Input.GetAxis("Vertical") * swimSpeed;
+        }
+        else
+        {
+            xMove = Input.GetAxis("Horizontal") * speed;
+        }
     }
 
     void Move()
-    {   
-        if(!sliding) {
-            rb2D.velocity = new Vector2(xMove, rb2D.velocity.y);
+    {
+        if (swimming == true)
+        {
+            rb2D.velocity = new Vector3(xMove, yMove);
+        }
+        else
+        {
+            if (!sliding)
+            {
+                rb2D.velocity = new Vector2(xMove, rb2D.velocity.y);
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D c) {
