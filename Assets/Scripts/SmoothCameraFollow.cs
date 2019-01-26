@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class SmoothCameraFollow : MonoBehaviour
 {
-
+    public GameManager gm;
     public Transform target;
     public Vector3 offset;
+    public Camera cam;
     public float smoothTime;
+    float size;
 
     private Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        size = gm.cameraSize;
+        cam.orthographicSize = size;
     }
 
     // Update is called once per frame

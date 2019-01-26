@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: c92b9d12006412c429bab4e01e12e8d0
+<<<<<<< HEAD
+guid: ce4fe0460b5e3d1439aa96378916a067
+=======
+guid: ae2e4b7aa7ba91f45bf159077dd65941
+>>>>>>> 1abe134... Adding tile setup scene
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
