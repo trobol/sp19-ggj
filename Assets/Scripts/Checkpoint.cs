@@ -10,7 +10,7 @@ public class Checkpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        checkpointController = GameObject.FindGameObjectWithTag("GM").GetComponent<CheckpointController>();
+        checkpointController = GameObject.FindGameObjectWithTag("GameController").GetComponent<CheckpointController>();
     }
 
     // Update is called once per frame
@@ -19,16 +19,21 @@ public class Checkpoint : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.tag == "Player")
         {
             Debug.Log("Hit Checkpoint");
             for(int i = 0; i < checkpointController.checkpoints.Length; i++)
             {
                 if(checkpointController.checkpoints[i] == this.gameObject)
                 {
+                    isCurrentCP = true;
                     checkpointController.currentCheckpoint = this.gameObject;
+                }
+                else
+                {
+                    checkpointController.checkpoints[i].GetComponent<Checkpoint>().isCurrentCP = false;
                 }
             }
         }
