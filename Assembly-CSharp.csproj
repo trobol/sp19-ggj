@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Gyser.cs" />
     <Compile Include="Assets\Scripts\PlayerWalk.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/ethan.heil/source/repos/sp19-ggj/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
