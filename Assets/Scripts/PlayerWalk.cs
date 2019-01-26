@@ -9,7 +9,7 @@ public class PlayerWalk : MonoBehaviour
 	Rigidbody2D rb2D;
 	float xMove = 0;
 	public float speed = 5f;
-
+	public GameObject visuals;
 	public bool sliding = false;
 	public float rotateBy = 10;
 	public Vector2 jumpForce = new Vector2(20, 150);
@@ -26,22 +26,29 @@ public class PlayerWalk : MonoBehaviour
 
 	public int direction = 1;
 	float rotTime = 0;
-	float rotTarget = 0;
-
+	public float rotTarget = 0;
+	Hill hill = null;
 	void Update()
 	{
-		RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, Mathf.Infinity, LayerMask.GetMask(new[] { "Ground" }));
-		grounded = hit.distance < 0.8f;
+		grounded = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.9f, LayerMask.GetMask(new[] { "Ground" }));
+
 		SlideUpdate();
 		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			BeginSlide();
 		}
-
+		if (!sliding)
+		{
+			visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(xMove));
+		}
+		if (rb2D.isKinematic && hill)
+		{
+			HillUpdate();
+		}
 
 		CheckInput();
 	}
-	bool rotating = false;
+	public bool rotating = false;
 	void SlideUpdate()
 	{
 		if (sliding)
@@ -60,10 +67,30 @@ public class PlayerWalk : MonoBehaviour
 			if (Mathf.Abs(rb2D.velocity.x) < 0.05f && !rotating && rotTarget != 0)
 			{
 				rotTarget = 0;
-				rb2D.AddForce(Vector2.up * 200);
+				rb2D.AddForce(Vector2.up * 300);
 			}
 		}
 	}
+	float hillPoint;
+	void HillUpdate()
+	{
+		hill.speed *= 1.03f;
+		hillPoint += hill.speed * Time.deltaTime;
+		if (hillPoint > 1)
+		{
+			rb2D.velocity = (hill.GetPoint(1) - hill.GetPoint(0.9f)) * hill.speed * 20;//TODO: ADD DERIVATIVE OF FINAL POINT
+			rb2D.isKinematic = false;
+			hill = null;
+
+		}
+		else
+		{
+			Vector2 currentP = hill.GetPoint(hillPoint);
+			Debug.Log(hillPoint);
+			transform.position = currentP;
+		}
+	}
+
 	private void FixedUpdate()
 	{
 		Move();
@@ -75,7 +102,7 @@ public class PlayerWalk : MonoBehaviour
 
 	void Move()
 	{
-		if (!sliding)
+		if (!sliding && grounded)
 		{
 			rb2D.velocity = new Vector2(xMove, rb2D.velocity.y);
 			if (xMove != 0)
@@ -100,8 +127,16 @@ public class PlayerWalk : MonoBehaviour
 			rotTarget = 90 * -1;
 		}
 	}
-	private void OnCollisionEnter2D(Collision2D c)
-	{
 
+	private void OnColliderEnter2D(Collider2D c)
+	{
+		if (c.gameObject.tag == "Hill")
+		{
+			rb2D.isKinematic = true;
+			hill = c.gameObject.GetComponent<Hill>();
+			hillPoint = hill.PosToT(transform.position);
+			hill.speed = Mathf.Abs(rb2D.velocity.x) * Time.fixedDeltaTime;
+			rb2D.velocity = Vector2.zero;
+		}
 	}
 }
