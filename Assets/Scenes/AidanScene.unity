@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 1713341157}
   - component: {fileID: 1713341156}
   - component: {fileID: 1713341158}
+  - component: {fileID: 1713341159}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -237,26 +238,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   currAttack: 0
-  attackRates:
-  - 0.5
-  - 0.3
-  - 0.1
-  - 2
-  - 0
-  bulletSpeed:
-  - 10
-  - 15
-  - 15
-  - 12
-  - 0
   firePoint: {fileID: 651494060}
   bullets:
   - {fileID: 3632035697104795589, guid: b5a33a36a5438694c9a1eaa6796beb4d, type: 3}
   - {fileID: 3632035697104795589, guid: b5a33a36a5438694c9a1eaa6796beb4d, type: 3}
   - {fileID: 3632035697104795589, guid: b5a33a36a5438694c9a1eaa6796beb4d, type: 3}
   - {fileID: 2541354267903284263, guid: c612b135ba9595f4db4655429008b3ca, type: 3}
-  - {fileID: 0}
+  - {fileID: 3632035697104795589, guid: b5a33a36a5438694c9a1eaa6796beb4d, type: 3}
+  bulletCount: 5
+  attackRates:
+  - 0.5
+  - 0.3
+  - 0.1
+  - 2
+  - 2
+  bulletSpeed:
+  - 10
+  - 15
+  - 15
+  - 12
+  - 5
   snowGunSpread: 1
+  bulletSpread: 2
+  knockBacks:
+  - 1
+  - 0
+  - 0
+  - 0
+  - 3
+  shakeAmount:
+  - 0.07
+  - 0
+  - 0
+  - 0
+  - 0
+  shakeStrength:
+  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  shakeDuration:
+  - 0.5
+  - 0
+  - 0
+  - 0
+  - 0
+  i: 0
+  camTransform: {fileID: 0}
+  rb2d: {fileID: 0}
+  shaking: 0
+--- !u!50 &1713341159
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713341155}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1792296163
 GameObject:
   m_ObjectHideFlags: 0
