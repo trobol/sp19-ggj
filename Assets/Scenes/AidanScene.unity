@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 1704556225}
   - component: {fileID: 1704556224}
   - component: {fileID: 1704556223}
+  - component: {fileID: 1704556226}
   m_Layer: 0
   m_Name: TestOrca
   m_TagString: Untagged
@@ -204,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1713341155}
   orcaSpeed: 1
+  slowRate: 0
 --- !u!212 &1704556224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -260,12 +262,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704556222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9178119, y: 2.4076881, z: 0}
+  m_LocalPosition: {x: -7.32, y: 0.79, z: 0}
   m_LocalScale: {x: 1.4625, y: 0.6875, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1704556226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704556222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4180713a6a4704e469425d7437394672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1713341155
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +554,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestSeal
       objectReference: {fileID: 0}
+    - target: {fileID: 2362902137414300106, guid: 193efef9593b67546a4615acc4cf90d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2362902137414300104, guid: 193efef9593b67546a4615acc4cf90d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -595,5 +614,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2362902137414300111, guid: 193efef9593b67546a4615acc4cf90d5,
+        type: 3}
+      propertyPath: bulletDespawn
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2362902137414300111, guid: 193efef9593b67546a4615acc4cf90d5,
+        type: 3}
+      propertyPath: direction
+      value: 
+      objectReference: {fileID: 1713341155}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 193efef9593b67546a4615acc4cf90d5, type: 3}
