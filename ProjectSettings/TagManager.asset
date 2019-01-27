@@ -4,12 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SnowSpray
-  - Icicle
-  - Enemy
-  - Snowball
-  - ShotGun
-  - platform
+  - Hill
   layers:
   - Default
   - TransparentFX
@@ -19,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - 
   - 
   - 
   - 

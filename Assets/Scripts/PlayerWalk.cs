@@ -21,8 +21,8 @@ public class PlayerWalk : MonoBehaviour
     void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        //anim = visuals.GetComponent<Animator>();
-        //head = visuals.transform.Find("head").gameObject;
+        anim = visuals.GetComponent<Animator>();
+        head = visuals.transform.Find("head").gameObject;
     }
 
     void Start()
@@ -50,12 +50,12 @@ public class PlayerWalk : MonoBehaviour
         if (!sliding && hill == null)
         {
 
-            //Vector2 pos = head.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 pos = head.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-           // head.GetComponent<SpriteRenderer>().flipY = pos.x > 0;
+           	head.GetComponent<SpriteRenderer>().flipY = pos.x > 0;
 
-            //head.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(pos.x, pos.y) * (180.0f / Mathf.PI) + 270);
+            head.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(pos.x, pos.y) * (180.0f / Mathf.PI) + 270);
             direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
             transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, 0);
 
@@ -63,7 +63,7 @@ public class PlayerWalk : MonoBehaviour
             //visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
         }
 
-        ///anim.SetFloat("speed", move.x);
+        anim.SetFloat("speed", move.x);
         CheckInput();
     }
     public bool rotating = false;

@@ -30,7 +30,7 @@ public class CheckpointController : MonoBehaviour
     {
         if(gm.isDead)
         {
-            StartCoroutine(gm.Fade());
+            //StartCoroutine(gm.Fade());
             player.transform.position = currentCheckpoint.transform.position;
             gm.isDead = false;
         }
