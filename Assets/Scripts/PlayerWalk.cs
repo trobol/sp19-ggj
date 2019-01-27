@@ -23,7 +23,7 @@ public class PlayerWalk : MonoBehaviour
 
 	void Start()
 	{
-
+		
 	}
 	bool swimming = false;
 	public int direction = 1;
@@ -57,14 +57,16 @@ public class PlayerWalk : MonoBehaviour
 		}
 		if (sliding)
 		{
+
 			Quaternion target = Quaternion.Euler(0, direction > 0 ? 0 : 180, rotTarget);
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, target, rotateBy * Time.deltaTime);
+
 			if (transform.rotation == target)
 			{
 				rotating = false;
-				Debug.Log("Hit Target");
 				if (rotTarget == 0)
 				{
+					rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 					sliding = false;
 				}
 			}
@@ -87,7 +89,6 @@ public class PlayerWalk : MonoBehaviour
 		}
 		else if (!sliding && grounded)
 		{
-			//Vector2 
 			rb2D.velocity = new Vector2(move.x, rb2D.velocity.y);
 		}
 
@@ -104,6 +105,8 @@ public class PlayerWalk : MonoBehaviour
 		if (!sliding)
 		{
 			sliding = true;
+			
+			rb2D.constraints = RigidbodyConstraints2D.None;
 			if (grounded)
 			{
 				rb2D.AddForce(new Vector2(jumpForce.x * direction, jumpForce.y));
