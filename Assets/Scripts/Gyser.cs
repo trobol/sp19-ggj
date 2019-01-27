@@ -8,6 +8,7 @@ public class Gyser : MonoBehaviour
     public float gyserForce = 600f;
     public ParticleSystem ps;
     public Camera cam;
+    AudioSource sound;
     public float zoomOut = 10f;
     public float zoomTime = 1.0f;
 
@@ -16,6 +17,7 @@ public class Gyser : MonoBehaviour
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         cam = Camera.main;
+        sound = GetComponent<AudioSource>();
         ps.Stop();
     }
 
@@ -31,6 +33,7 @@ public class Gyser : MonoBehaviour
         if(collision.tag == "Player")
         {
             ps.Play();
+            sound.Play();
             StartCoroutine(ZoomOut(cam.orthographicSize, zoomOut, zoomTime));
             rb2D = collision.GetComponent<Rigidbody2D>();
             //Debug.Log("Hit Gyser");
