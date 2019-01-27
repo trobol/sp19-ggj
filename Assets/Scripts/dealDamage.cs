@@ -35,6 +35,7 @@ public class dealDamage : MonoBehaviour
             else if (gameObject.tag == "Icicle")
             {
                 collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[1];
+                Destroy(gameObject);
             }
             else if (gameObject.tag == "SnowSpray")
             {
@@ -51,6 +52,10 @@ public class dealDamage : MonoBehaviour
                 collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[4];
                 Destroy(gameObject);
             }
+        }
+        else if(collision.tag == "platform")
+        {
+            Destroy(gameObject);
         }
     }
 }
