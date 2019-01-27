@@ -10,17 +10,31 @@ public class GameManager : MonoBehaviour
     public AudioSource music;
     public bool isDead = false;
     public float cameraSize = 7;
+    public bool onMenu;
+
+    private void Awake()
+    {
+        if (Black.enabled == false)
+        {
+            Black.enabled = true;
+        }
+        if (onMenu)
+        {
+            Black.color = new Color(0, 0, 0, 0);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(Black.enabled == false)
-        {
-            Black.enabled = true;
-        }
+        
         anim = GameObject.Find("Black").GetComponent<Animator>();
         StartCoroutine(Fade());
-        music.Play();
+        if(music != null)
+        {
+            music.Play();
+        }
+        
     }
 
     // Update is called once per frame
