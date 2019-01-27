@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public int startingHealth = 100;
     public int currentHealth;
-    public Slider healthSlider;
+    public Image healthSlider;
     public Image damageImage;
     public float flashSpeed = 5f;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
@@ -41,11 +41,11 @@ public class PlayerHealth : MonoBehaviour
     {
         if (damaged)
         {
-            damageImage.color = flashColor;
+            //damageImage.color = flashColor;
         }
         else
         {
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            //damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
     }
 
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
                
         currentHealth -= amount;
                 
-        healthSlider.value = currentHealth;
+        healthSlider.transform.localScale.Set(currentHealth, transform.localScale.y, transform.localScale.z);
 
         if (currentHealth <= 0 && !isDead)
         {

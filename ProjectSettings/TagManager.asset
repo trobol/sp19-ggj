@@ -4,14 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hill
-  - Water
-  - Goal
-  - Snowball
-  - Icicle
   - SnowSpray
-  - ShotGun
+  - Icicle
   - Enemy
+  - Snowball
+  - ShotGun
   - platform
   layers:
   - Default
