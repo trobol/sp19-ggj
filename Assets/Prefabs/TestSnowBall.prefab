@@ -131,6 +131,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535b2d19ea42f2845a2e3703a241f98e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDamage: 0
-  enemyDamage: 0000000000000000000000000000000000000000
-  currProjectile: 0
+  playerDamage: 3
