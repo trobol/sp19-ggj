@@ -234,14 +234,10 @@ public class PlayerShooting : MonoBehaviour
                     currAttack = 2;
                     break;
                 case 2:
-                    attack = attackTypes.deadFish;
+                    attack = attackTypes.snowCluster;
                     currAttack = 3;
                     break;
                 case 3:
-                    attack = attackTypes.snowCluster;
-                    currAttack = 4;
-                    break;
-                case 4:
                     attack = attackTypes.snowBall;
                     currAttack = 0;
                     break;

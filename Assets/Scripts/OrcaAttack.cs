@@ -14,6 +14,8 @@ public class OrcaAttack : MonoBehaviour
 
     public float agroRange = 0;
 
+    public float knockBack = 0;
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -32,5 +34,14 @@ public class OrcaAttack : MonoBehaviour
         }
         transform.right = target.transform.position - transform.position;
         transform.position += dir * Time.deltaTime * orcaSpeed;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            other.GetComponent<PlayerHealth>().TakeDamage(6);
+            other.GetComponent<Rigidbody2D>().AddForce(-transform.right * knockBack);
+        }
     }
 }

@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currEnemy: 0
   health: 0
-  enemyHealth: 0000000000000000
+  enemyHealth: 0c00000018000000
   hit: 0
   damageAmount: 0
 --- !u!1 &651494060
@@ -229,6 +229,7 @@ MonoBehaviour:
   player: {fileID: 1713341155}
   orcaSpeed: 1
   slowRate: 0
+  agroRange: 0
 --- !u!212 &1704556224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currEnemy: 1
   health: 0
-  enemyHealth: 0000000000000000
+  enemyHealth: 0c00000018000000
   hit: 0
   damageAmount: 0
 --- !u!1 &1713341155
