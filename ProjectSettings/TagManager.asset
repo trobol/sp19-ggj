@@ -11,6 +11,8 @@ TagManager:
   - Icicle
   - SnowSpray
   - ShotGun
+  - Enemy
+  - platform
   layers:
   - Default
   - TransparentFX

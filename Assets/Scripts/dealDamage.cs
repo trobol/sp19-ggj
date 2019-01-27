@@ -53,5 +53,9 @@ public class dealDamage : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if(collision.tag == "platform")
+        {
+            Destroy(gameObject);
+        }
     }
 }
