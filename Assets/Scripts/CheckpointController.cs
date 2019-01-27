@@ -9,8 +9,7 @@ public class CheckpointController : MonoBehaviour
     public GameObject player;
     public GameObject[] checkpoints;
     public GameObject currentCheckpoint;
-    public Image Black;
-    public Animator anim;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +18,6 @@ public class CheckpointController : MonoBehaviour
         checkpoints[0].GetComponent<Checkpoint>().isCurrentCP = true;
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        anim = GameObject.Find("Black").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,20 +30,13 @@ public class CheckpointController : MonoBehaviour
     {
         if(gm.isDead)
         {
-            StartCoroutine(Fade());
+            StartCoroutine(gm.Fade());
+            player.transform.position = currentCheckpoint.transform.position;
+            gm.isDead = false;
         }
     }
 
-    IEnumerator Fade()
-    {
-        anim.SetBool("Fade", true);
-        yield return new WaitUntil(() => Black.color.a == 1);
-        player.transform.position = currentCheckpoint.transform.position;
-        gm.isDead = false;
-        anim.SetBool("Fade", false);
-        yield return new WaitUntil(() => Black.color.a == 1);
-        
-    }
+    
 
 
 
