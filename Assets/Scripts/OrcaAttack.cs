@@ -12,15 +12,12 @@ public class OrcaAttack : MonoBehaviour
 
     public float slowRate = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    public float agroRange = 0;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        moveTowards(player);
+        if(Mathf.Abs(Vector3.Distance(player.transform.position, transform.position)) < agroRange) moveTowards(player);
     }
 
     void moveTowards(GameObject target)
