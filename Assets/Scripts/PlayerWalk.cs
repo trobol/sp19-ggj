@@ -70,10 +70,10 @@ public class PlayerWalk : MonoBehaviour
 					sliding = false;
 				}
 			}
-			if (Mathf.Abs(rb2D.velocity.x) < 0.05f && !rotating && rotTarget != 0)
+			if (Mathf.Abs(rb2D.velocity.x) < 0.1f && !rotating && rotTarget != 0 )
 			{
 				rotTarget = 0;
-				rb2D.AddForce(Vector2.up * 300);
+				rb2D.AddForce(Vector2.up * 400);
 			}
 		}
 	}
