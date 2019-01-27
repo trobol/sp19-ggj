@@ -127,7 +127,6 @@ public class Water : MonoBehaviour
             meshes[i].uv = UVs;
             meshes[i].triangles = tris;
 
-
             meshObjects[i] = Instantiate(waterMesh, Vector3.zero, Quaternion.identity) as GameObject;
             meshObjects[i].GetComponent<MeshFilter>().mesh = meshes[i];
             meshObjects[i].transform.parent = transform;

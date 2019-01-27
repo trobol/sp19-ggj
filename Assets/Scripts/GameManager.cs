@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         {
             anim = GameObject.Find("Black").GetComponent<Animator>();
             StartCoroutine(Fade());
-        }    
+        }   
         if(music != null)
         {
             music.Play();

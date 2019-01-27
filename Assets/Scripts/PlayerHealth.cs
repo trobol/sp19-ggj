@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public Image damageImage;
     public float flashSpeed = 5f;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
+    public GameManager gm;
 
 
     Animator anim;
@@ -26,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth; 
         playerMovement = GetComponent <PlayerWalk> ();
         playerShooting = GetComponentInChildren<PlayerShooting>();
-
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
 
@@ -54,8 +55,10 @@ public class PlayerHealth : MonoBehaviour
         damaged = true;
                
         currentHealth -= amount;
+
+        healthSlider.rectTransform.localScale.Set(currentHealth, transform.localScale.y, transform.localScale.z);
                 
-        healthSlider.transform.localScale.Set(currentHealth, transform.localScale.y, transform.localScale.z);
+        //healthSlider.transform.localScale.Set(currentHealth, transform.localScale.y, transform.localScale.z);
 
         if (currentHealth <= 0 && !isDead)
         {
@@ -68,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Death()
     {
-        isDead = true;
+        gm.isDead = true;
 
         //playerShooting.DisableEffects();
 
