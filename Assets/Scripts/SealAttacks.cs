@@ -11,7 +11,6 @@ public class SealAttacks : MonoBehaviour
 
     public GameObject projectile;
 
-    [HideInInspector]
     public GameObject direction;
 
     public float attackRate = 0;
@@ -24,7 +23,7 @@ public class SealAttacks : MonoBehaviour
     void Start()
     {
         bulletSpawn = GameObject.Find("BulletSpawn");
-        direction = GameObject.Find("FireLocation");
+        //direction = GameObject.Find("");
     }
 
     // Update is called once per frame
