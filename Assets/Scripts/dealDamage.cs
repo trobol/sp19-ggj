@@ -10,11 +10,11 @@ public class dealDamage : MonoBehaviour
 
     void Start()
     {
-        enemyDamage[0] = 0; //First weapon damage amount
-        enemyDamage[1] = 0; //Second weapon damage amount
-        enemyDamage[2] = 0; //Third weapon damage amount
+        enemyDamage[0] = 5; //First weapon damage amount
+        enemyDamage[1] = 10; //Second weapon damage amount
+        enemyDamage[2] = 3; //Third weapon damage amount
         enemyDamage[3] = 0; //Fourth weapon damage amout
-        enemyDamage[4] = 0; //Total damage amount
+        enemyDamage[4] = 3; //Total damage amount
     }
 
     void OnTriggerEnter2D(Collider2D collision)
