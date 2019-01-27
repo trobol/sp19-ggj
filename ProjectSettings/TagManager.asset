@@ -7,6 +7,10 @@ TagManager:
   - Hill
   - Water
   - Goal
+  - Snowball
+  - Icicle
+  - SnowSpray
+  - ShotGun
   layers:
   - Default
   - TransparentFX
