@@ -304,11 +304,6 @@ PrefabInstance:
       propertyPath: music
       value: 
       objectReference: {fileID: 332383403}
-    - target: {fileID: 5561800488047301069, guid: 280e8460b0482164fb0ede483903ab32,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.169
-      objectReference: {fileID: 0}
     - target: {fileID: 7182910998214485655, guid: 280e8460b0482164fb0ede483903ab32,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -388,6 +383,11 @@ PrefabInstance:
         type: 3}
       propertyPath: checkpoints.Array.data[1]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5561800488047301069, guid: 280e8460b0482164fb0ede483903ab32,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.169
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 280e8460b0482164fb0ede483903ab32, type: 3}
@@ -583,7 +583,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd96bd660287f3c419231841f417cd39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d2b302374e22094ab7a598b3859622a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -37340,7 +37340,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd96bd660287f3c419231841f417cd39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d2b302374e22094ab7a598b3859622a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -37731,7 +37731,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd96bd660287f3c419231841f417cd39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d2b302374e22094ab7a598b3859622a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
