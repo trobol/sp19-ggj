@@ -456,7 +456,6 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 406535144}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &380062861
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +486,6 @@ Transform:
   m_Father: {fileID: 1559877845}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> fbb30fbf8f873f2ae911fad3eab7f4430283f184
 --- !u!1001 &406535144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -815,7 +812,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &737528922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5208603821834307548, guid: f19470319bcfb39449baa74237e8b0ed,
@@ -906,8 +902,6 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 0.1}
   gm: {fileID: 0}
   damaged: 0
-=======
->>>>>>> fbb30fbf8f873f2ae911fad3eab7f4430283f184
 --- !u!1001 &743487573
 PrefabInstance:
   m_ObjectHideFlags: 0
