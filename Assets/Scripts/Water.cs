@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+    public float leftBound = -10;
+    public float width = 20;
+    public float toppityTop = 0;
+    public float bottomyBottom = -3;
+
+    LineRenderer Body;
+
     float[] xPositions;
     float[] yPositions;
     float[] velocities;
     float[] accelerations;
-    LineRenderer Body;
+    
     GameObject[] meshObjects;
     Mesh[] meshes;
     GameObject[] colliders;
+
+    public GameObject splash;
+
+    public Material mat;
+
+    public GameObject waterMesh;
 
     public const float springConstant = 0.02f;
     public const float damping = 0.04f;
@@ -22,22 +35,48 @@ public class Water : MonoBehaviour
     float left;
     float bottom;
 
-    public GameObject splash;
-    public Material mat;
-    public GameObject waterMesh;
+    
+    
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnWater(-10, 20, 0, -10);
+        SpawnWater(leftBound, width, toppityTop, bottomyBottom);
+    }
+
+    public void Splash(float xpos, float velocity)
+    {
+        if (xpos >= xPositions[0] && xpos <= xPositions[xPositions.Length - 1])
+        {
+            xpos -= xPositions[0];
+
+            int index = Mathf.RoundToInt((xPositions.Length - 1) * (xpos / (xPositions[xPositions.Length - 1] - xPositions[0])));
+
+            velocities[index] += velocity;
+
+            float lifetime = 0.93f + Mathf.Abs(velocity) * 0.07f;
+
+            splash.GetComponent<ParticleSystem>().startSpeed = 8 + 2 * Mathf.Pow(Mathf.Abs(velocity), 0.5f);
+            splash.GetComponent<ParticleSystem>().startSpeed = 9 + 2 * Mathf.Pow(Mathf.Abs(velocity), 0.5f);
+            splash.GetComponent<ParticleSystem>().startLifetime = lifetime;
+
+            Vector3 position = new Vector3(xPositions[index], yPositions[index] - 0.35f, 5);
+
+            Quaternion rotation = Quaternion.LookRotation(new Vector3(xPositions[Mathf.FloorToInt(xPositions.Length / 2)], baseHeight + 8, 5) - position);
+
+            GameObject splish = Instantiate(splash, position, rotation) as GameObject;
+            Destroy(splish, lifetime + 0.3f);
+        }
     }
 
 
-    public void spawnWater(float Left, float width, float Top, float Bottom)
+    public void SpawnWater(float Left, float width, float Top, float Bottom)
     {
         int edgeCount = Mathf.RoundToInt(width) * 5;
         int nodeCount = edgeCount + 1;
+
         Body = gameObject.AddComponent<LineRenderer>();
         Body.material = mat;
         Body.material.renderQueue = 1000;
@@ -61,9 +100,9 @@ public class Water : MonoBehaviour
         {
             yPositions[i] = Top;
             xPositions[i] = Left + width * i / edgeCount;
+            Body.SetPosition(i, new Vector3(xPositions[i], Top, z));
             accelerations[i] = 0;
             velocities[i] = 0;
-            Body.SetPosition(i, new Vector3(xPositions[i], yPositions[i], z));
         }
 
         for (int i = 0; i < edgeCount; i++)
@@ -74,7 +113,7 @@ public class Water : MonoBehaviour
             vertices[0] = new Vector3(xPositions[i], yPositions[i], z);
             vertices[1] = new Vector3(xPositions[i + 1], yPositions[i + 1], z);
             vertices[2] = new Vector3(xPositions[i], bottom, z);
-            vertices[4] = new Vector3(xPositions[i + 1], bottom, z);
+            vertices[3] = new Vector3(xPositions[i + 1], bottom, z);
 
             Vector2[] UVs = new Vector2[4];
             UVs[0] = new Vector2(0, 1);
@@ -96,8 +135,10 @@ public class Water : MonoBehaviour
             colliders[i].name = "Trigger";
             colliders[i].AddComponent<BoxCollider2D>();
             colliders[i].transform.parent = transform;
-            colliders[i].transform.position = new Vector3(Left + width * (i + 0 / 5f) / edgeCount, Top - 0.5f, 0);
+
+            colliders[i].transform.position = new Vector3(Left + width * (i + 0.5f) / edgeCount, Top - 0.5f, 0);
             colliders[i].transform.localScale = new Vector3(width / edgeCount, 1, 1);
+
             colliders[i].GetComponent<BoxCollider2D>().isTrigger = true;
             colliders[i].AddComponent<WaterDetector>();
         }
@@ -112,13 +153,13 @@ public class Water : MonoBehaviour
             vertices[0] = new Vector3(xPositions[i], yPositions[i], z);
             vertices[1] = new Vector3(xPositions[i + 1], yPositions[i + 1], z);
             vertices[2] = new Vector3(xPositions[i], bottom, z);
-            vertices[4] = new Vector3(xPositions[i + 1], bottom, z);
+            vertices[3] = new Vector3(xPositions[i + 1], bottom, z);
 
             meshes[i].vertices = vertices;
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         for(int i = 0; i < xPositions.Length; i++)
         {
@@ -160,25 +201,9 @@ public class Water : MonoBehaviour
                 yPositions[i + 1] += rightDeltas[i];
             }
         }
+
+        UpdateMeshes();
     }
 
-    public void Splash(float xpos, float velocity)
-    {
-        if (xpos >= xPositions[0] && xpos <= xPositions[xPositions.Length-1])
-        {
-            xpos -= xPositions[0];
-            int index = Mathf.RoundToInt((xPositions.Length - 1) * (xpos / (xPositions[xPositions.Length - 1] - xPositions[0])));
-            velocities[index] = velocity;
-
-            float lifetime = 0.93f + Mathf.Abs(velocity) * 0.07f;
-            splash.GetComponent<ParticleSystem>().startSpeed = 8 + 2 * Mathf.Pow(Mathf.Abs(velocity), 0.5f);
-            splash.GetComponent<ParticleSystem>().startSpeed = 9 + 2 * Mathf.Pow(Mathf.Abs(velocity), 0.5f);
-            splash.GetComponent<ParticleSystem>().startLifetime = lifetime;
-
-            Vector3 position = new Vector3(xPositions[index], yPositions[index] - 0.35f, 5);
-            Quaternion rotation = Quaternion.LookRotation(new Vector3(xPositions[Mathf.FloorToInt(xPositions.Length / 2)], baseHeight + 8, 5) - position);
-            GameObject splish = Instantiate(splash, position, rotation) as GameObject;
-            Destroy(splish, lifetime = 0.3f);
-        }
-    }
+    
 }

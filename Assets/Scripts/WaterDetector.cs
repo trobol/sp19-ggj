@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterDetector : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider Hit)
+    private void OnTriggerEnter2D(Collider2D Hit)
     {
         if(Hit.GetComponent<Rigidbody2D>() != null)
         {
