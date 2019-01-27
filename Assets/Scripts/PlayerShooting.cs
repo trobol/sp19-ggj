@@ -214,7 +214,7 @@ public class PlayerShooting : MonoBehaviour
             kickBack(knockBacks[4], mouseLoc);
             timeToShakeEnd = Time.time + shakeDuration[currAttack];
             shaking = true;
-            Destroy(bullet, 2f);
+            Destroy(bullet, 1f);
         }
     }
 
@@ -234,10 +234,14 @@ public class PlayerShooting : MonoBehaviour
                     currAttack = 2;
                     break;
                 case 2:
-                    attack = attackTypes.snowCluster;
+                    attack = attackTypes.deadFish;
                     currAttack = 3;
                     break;
                 case 3:
+                    attack = attackTypes.snowCluster;
+                    currAttack = 4;
+                    break;
+                case 4:
                     attack = attackTypes.snowBall;
                     currAttack = 0;
                     break;
