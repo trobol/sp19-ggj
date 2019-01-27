@@ -74,12 +74,6 @@ public class Water : MonoBehaviour
 
     public void SpawnWater(float Left, float width, float Top, float Bottom)
     {
-        gameObject.AddComponent<BoxCollider2D>();
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(Left + width / 2, (Top + Bottom) / 2);
-        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(width, Top - Bottom);
-        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        gameObject.GetComponent<BoxCollider2D>().tag = "Water";
-
         int edgeCount = Mathf.RoundToInt(width) * 5;
         int nodeCount = edgeCount + 1;
 
