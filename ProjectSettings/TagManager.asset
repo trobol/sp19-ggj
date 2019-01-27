@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hill
+  - Snowball
+  - Icicle
+  - SnowSpray
+  - ShotGun
+  - Deadfish
   layers:
   - Default
   - TransparentFX
