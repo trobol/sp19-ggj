@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 5208603821834307551}
   - component: {fileID: 5208603821834307550}
   - component: {fileID: 663529810}
+  - component: {fileID: 737528923}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -632,6 +633,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6202188339734324134}
+  - {fileID: 380062862}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -650,8 +652,8 @@ MonoBehaviour:
   speed: 5
   visuals: {fileID: 5008779493966011043}
   sliding: 0
-  rotateBy: 250
-  jumpForce: {x: 0, y: 500}
+  rotateBy: 300
+  jumpForce: {x: 200, y: 500}
   grounded: 0
   direction: 1
   rotTarget: 0
@@ -694,3 +696,67 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &737528923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208603821834307548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b9e0cfc36e72a47b8fa8df89e1ffe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 0
+  currAttack: 0
+  firePoint: {fileID: 380062861}
+  bullets:
+  - {fileID: 2391055601272456121, guid: f392ae576899058429f37b1e16a68153, type: 3}
+  - {fileID: 2391055601272456121, guid: 6c695f10ac24e484c943a00adfbdb940, type: 3}
+  - {fileID: 2391055601272456121, guid: 693cb21baee0b3b45a16b0545bdcba6d, type: 3}
+  - {fileID: 0}
+  - {fileID: 2391055601272456121, guid: fecc1cd4f2337b143b4768d3370623ed, type: 3}
+  bulletCount: 5
+  attackRates:
+  - 0.5
+  - 0.75
+  - 0.1
+  - 2
+  - 2
+  bulletSpeed:
+  - 15
+  - 10
+  - 15
+  - 12
+  - 5
+  snowGunSpread: 1
+  bulletSpread: 2
+  knockBacks:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 2
+  shakeAmount:
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.1
+  shakeStrength:
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  shakeDuration:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  i: 0
+  camTransform: {fileID: 0}
+  rb2d: {fileID: 0}
+  shaking: 0

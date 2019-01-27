@@ -12,6 +12,7 @@ public class Hill : MonoBehaviour
 
 	public float height;
 	public float speed = 1;
+    public Vector2 endForce;
 	private void OnEnable()
 	{
 		
