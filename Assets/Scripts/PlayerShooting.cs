@@ -214,7 +214,7 @@ public class PlayerShooting : MonoBehaviour
             kickBack(knockBacks[4], mouseLoc);
             timeToShakeEnd = Time.time + shakeDuration[currAttack];
             shaking = true;
-            Destroy(bullet, 1f);
+            Destroy(bullet, 2f);
         }
     }
 
