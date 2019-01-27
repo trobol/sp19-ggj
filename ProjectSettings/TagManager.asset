@@ -4,20 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hill
-  - Water
-  - Goal
-<<<<<<< HEAD
-  - StartLoc
-  - EndLoc
-=======
-  - Snowball
-  - Icicle
   - SnowSpray
-  - ShotGun
+  - Icicle
   - Enemy
-  - platform
->>>>>>> 746976725101deec1ab69842ecfef264e967aa67
+  - Snowball
+  - ShotGun
   layers:
   - Default
   - TransparentFX
@@ -27,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - 
   - 
   - 
   - 
