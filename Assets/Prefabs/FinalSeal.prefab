@@ -132,7 +132,7 @@ MonoBehaviour:
   direction: {fileID: 1546458348}
   attackRate: 1
   bulletSpeed: 10
-  bulletDespawn: 4
+  bulletDespawn: 3
 --- !u!60 &6091705606745952923
 PolygonCollider2D:
   m_ObjectHideFlags: 0
