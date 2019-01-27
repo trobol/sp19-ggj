@@ -38,18 +38,13 @@ public class PlayerWalk : MonoBehaviour
 		//end
 			SlideUpdate();
 
-			
-			if (rb2D.isKinematic && hill)
-			{
-				HillUpdate();
-			}
 		}
 		if(!sliding) {
 			direction = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x < 0 ? -1 : 1;
 			transform.rotation = Quaternion.Euler(0, direction > 0 ? 0 : 180, 0);
 			
 			//visuals.transform.localRotation = Quaternion.AxisAngle(Vector3.forward, Mathf.Abs(Mathf.Sin(Time.time * 30)) * 90 * Mathf.Abs(move.x));
-			visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
+			//visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
 		}
 		CheckInput();
 	}
@@ -80,30 +75,22 @@ public class PlayerWalk : MonoBehaviour
 			}
 		}
 	}
-	float hillPoint;
-	void HillUpdate()
-	{
-		hill.speed *= 1.03f;
-		hillPoint += hill.speed * Time.deltaTime;
-		if (hillPoint > 1)
-		{
-			rb2D.velocity = (hill.GetPoint(1) - hill.GetPoint(0.9f)) * hill.speed * 20;//TODO: ADD DERIVATIVE OF FINAL POINT
-			rb2D.isKinematic = false;
-			hill = null;
 
-		}
-		else
-		{
-			Vector2 currentP = hill.GetPoint(hillPoint);
-			Debug.Log(hillPoint);
-			transform.position = currentP;
-		}
-	}
 
 	private void FixedUpdate()
 	{
-		grounded = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.9f, LayerMask.GetMask(new[] { "Ground" }));
-		Move();
+		RaycastHit2D hit = Physics2D.BoxCast(transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.9f, LayerMask.GetMask(new[] { "Ground" }));
+		grounded = hit;
+		if (swimming)
+		{
+			rb2D.velocity = move;
+		}
+		else if (!sliding && grounded)
+		{
+			//Vector2 
+			rb2D.velocity = new Vector2(move.x, rb2D.velocity.y);
+		}
+
 	}
 	void CheckInput()
 	{
@@ -112,21 +99,6 @@ public class PlayerWalk : MonoBehaviour
 		move.y = Input.GetAxis("Vertical") * speed;
 		//end
 	}
-
-	void Move()
-	{
-
-		if (swimming)
-		{
-			rb2D.velocity = move;
-		}
-		else if (!sliding && grounded)
-		{
-			rb2D.velocity = new Vector2(move.x, rb2D.velocity.y);
-		}
-
-	}
-
 	void BeginSlide()
 	{
 		if (!sliding)
@@ -138,18 +110,6 @@ public class PlayerWalk : MonoBehaviour
 			}
 			rotating = true;
 			rotTarget = 90 * -1;
-		}
-	}
-
-	private void OnColliderEnter2D(Collider2D c)
-	{
-		if (c.tag == "Hill")
-		{
-			rb2D.isKinematic = true;
-			hill = c.gameObject.GetComponent<Hill>();
-			hillPoint = hill.PosToT(transform.position);
-			hill.speed = Mathf.Abs(rb2D.velocity.x) * Time.fixedDeltaTime;
-			rb2D.velocity = Vector2.zero;
 		}
 	}
 
