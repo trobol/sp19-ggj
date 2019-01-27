@@ -130,6 +130,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
 
             }
+            GetComponent<Animator>().SetTrigger("shoot");
         }
 
     }

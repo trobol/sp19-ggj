@@ -62,7 +62,7 @@ public class PlayerWalk : MonoBehaviour
             //visuals.transform.localRotation = Quaternion.AxisAngle(Vector3.forward, Mathf.Abs(Mathf.Sin(Time.time * 30)) * 90 * Mathf.Abs(move.x));
             //visuals.transform.localPosition = new Vector2(0, (1 + Mathf.Sin(Time.time * 30)) * 0.005f * Mathf.Abs(move.x));
         }
-
+		anim.SetBool("sliding", sliding);
         anim.SetFloat("speed", move.x);
         CheckInput();
     }
@@ -169,7 +169,7 @@ public class PlayerWalk : MonoBehaviour
         {
             if (sliding)
             {
-                rb2D.isKinematic = true;
+                rb2D.isKinematic = true;	
                 hill = c.gameObject.GetComponent<Hill>();
                 hillPoint = -1;
                 hill.speed = rb2D.velocity.magnitude * Time.fixedDeltaTime * hill.speed;
