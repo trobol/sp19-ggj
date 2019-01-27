@@ -4,37 +4,54 @@ using UnityEngine;
 
 public class MovePlatform : MonoBehaviour
 {
-    public Vector2 point1;
-    public Vector2 point2;
-
-    public bool goingTo = false;
-
-    public float speed = 10.0f;
+    public Transform startLoc;
+    public Transform endLoc;
+    public bool canMove = false;
+    public float speed = 1.0f;
+    public bool atStart = false;
+    public bool atEnd = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(canMove)
+        {
+            transform.position = startLoc.position;
+            atStart = true;
+        }     
     }
 
     // Update is called once per frame
     void Update()
     {
-        float step = speed * Time.deltaTime;
+        moveToEnd();
+    }
 
-        if (transform.position.x == point2.x && transform.position.y == point2.y)
-            goingTo = true;
-        else
-            goingTo = false;
-
-        if (goingTo)
+    void moveToEnd()
+    {
+        if(atStart)
         {
-            transform.position = Vector2.MoveTowards(transform.position, point1, step);
+            transform.position = Vector3.MoveTowards(transform.position, endLoc.position, speed * Time.deltaTime);
         }
-        else
+        if (atEnd)
         {
-            transform.position = Vector2.MoveTowards(transform.position, point2, step);
+            transform.position = Vector3.MoveTowards(transform.position, startLoc.position, speed * Time.deltaTime);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "StartLoc")
+        {
+            atEnd = false;
+            atStart = true;
+        }
+        if (collision.gameObject.tag == "EndLoc")
+        {
+            atStart = false;
+            atEnd = true;
+        }
+    }
+
 }

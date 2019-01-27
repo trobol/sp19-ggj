@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8486959283043174860}
   - component: {fileID: 8486959283043174863}
   - component: {fileID: 8486959283043174862}
+  - component: {fileID: 1336549648}
   m_Layer: 0
   m_Name: cloud platform
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8486959283043174849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.66, y: 5.81, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.1089926, y: 3.3259263, z: 2.9563792}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,3 +97,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.004031659, y: -0.0050131083}
   m_Size: {x: 2.9756124, y: 1.3707408}
   m_Direction: 1
+--- !u!114 &1336549648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486959283043174849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79856a9dc8ec894698b891cb63c3e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLoc: {fileID: 0}
+  endLoc: {fileID: 0}
+  canMove: 0
+  speed: 10
+  atStart: 0
+  atEnd: 0

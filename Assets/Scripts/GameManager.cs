@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Black.enabled == false)
+        if (Black != null && Black.enabled == false)
         {
             Black.enabled = true;
         }
@@ -27,9 +27,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        anim = GameObject.Find("Black").GetComponent<Animator>();
-        StartCoroutine(Fade());
+        if(anim != null)
+        {
+            anim = GameObject.Find("Black").GetComponent<Animator>();
+            StartCoroutine(Fade());
+        }    
         if(music != null)
         {
             music.Play();
