@@ -36,7 +36,7 @@ public class SealAttacks : MonoBehaviour
     {
         timeToNextAttack = Time.time + attackRate;
         GameObject bullet = Instantiate(projectile, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-        bullet.transform.right = direction.transform.position - transform.position;
+        bullet.transform.right = direction.transform.position - bulletSpawn.transform.position;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * bullet.transform.right;
         Destroy(bullet, bulletDespawn);
     }
