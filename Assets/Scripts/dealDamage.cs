@@ -6,32 +6,11 @@ public class dealDamage : MonoBehaviour
 {
     public int playerDamage;
 
-    public int[] enemyDamage = new int[5];
-
-    public int currProjectile = 0;
+    private int[] enemyDamage = new int[5];
 
     void Start()
-    {
-        if(gameObject.tag == "Snowball")
-        {
-            currProjectile = 0;
-        }
-        else if (gameObject.tag == "Icicle")
-        {
-            currProjectile = 1;
-        }
-        else if (gameObject.tag == "SnowSpray")
-        {
-            currProjectile = 2;
-        }
-        else if (gameObject.tag == "Deadfish")
-        {
-            currProjectile = 3;
-        }
-        else if (gameObject.tag == "ShotGun")
-        {
-            currProjectile = 4;
-        }
+    { 
+       
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -43,9 +22,31 @@ public class dealDamage : MonoBehaviour
         }
         else if(collision.tag == "Enemy")
         {
-            Destroy(gameObject);
             collision.GetComponent<EnemyHealth>().hit = true;
-            collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[currProjectile];
+            if (gameObject.tag == "Snowball")
+            {
+                collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[0];
+                Destroy(gameObject);
+            }
+            else if (gameObject.tag == "Icicle")
+            {
+                collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[1];
+            }
+            else if (gameObject.tag == "SnowSpray")
+            {
+                collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[2];
+                Destroy(gameObject);
+            }
+            else if (gameObject.tag == "Deadfish")
+            {
+                collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[3];
+                Destroy(gameObject);
+            }
+            else if (gameObject.tag == "ShotGun")
+            {
+                collision.GetComponent<EnemyHealth>().damageAmount = enemyDamage[4];
+                Destroy(gameObject);
+            }
         }
     }
 }
