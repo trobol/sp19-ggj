@@ -6,7 +6,6 @@ public class SealAttacks : MonoBehaviour
 {
     private float timeToNextAttack = 0; //How much longer until player can attack again
 
-    [HideInInspector]
     public GameObject bulletSpawn;
 
     public GameObject projectile;
@@ -22,7 +21,6 @@ public class SealAttacks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bulletSpawn = GameObject.Find("BulletSpawn");
         //direction = GameObject.Find("");
     }
 
