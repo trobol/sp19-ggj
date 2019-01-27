@@ -106,6 +106,8 @@ public class PlayerShooting : MonoBehaviour
         //If Left Click is pushed down and attack is not on cooldown
         if (Input.GetMouseButton(0) && Time.time > timeToNextAttack)
         {
+            GetComponent<Animator>().SetTrigger("shoot");
+
             mousePos = Input.mousePosition; //Get Mouse Position
             adjustedPos = Camera.main.ScreenToWorldPoint(mousePos); //Adjusted Position
             adjustedPos.z = 0; //Set the z to zero
@@ -130,7 +132,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
 
             }
-            GetComponent<Animator>().SetTrigger("shoot");
+          
         }
 
     }
