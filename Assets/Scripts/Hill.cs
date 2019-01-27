@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EdgeCollider2D))]
 [ExecuteInEditMode]
 public class Hill : MonoBehaviour
 {
@@ -13,10 +12,10 @@ public class Hill : MonoBehaviour
 
 	public float height;
 	public float speed = 1;
-	EdgeCollider2D collider;
+    public Vector2 endForce;
 	private void OnEnable()
 	{
-		collider = GetComponent<EdgeCollider2D>();
+		
 	}
 
 	public Vector2[] controlPoints = {
@@ -37,7 +36,6 @@ public class Hill : MonoBehaviour
 			float t = i / (float)steps;
 			points[i] = Vector3.Lerp(Vector3.Lerp(controlPoints[1], controlPoints[2], t), Vector3.Lerp(controlPoints[2], controlPoints[3], t), t);
 		}
-		collider.points = points;
 		return points;
 	}
 
@@ -49,14 +47,14 @@ public class Hill : MonoBehaviour
 	}
 	public Vector2 GetPoint(float t)
 	{
-		return transform.TransformPoint(Vector3.Lerp(Vector3.Lerp(controlPoints[1], controlPoints[2], t), Vector3.Lerp(controlPoints[2], controlPoints[3], t), t));
+		if(t <= 0) {
+			return Vector3.Lerp(transform.TransformPoint(controlPoints[0]), transform.TransformPoint(controlPoints[1]), 1+t);
+		} else {
+			return transform.TransformPoint(Vector3.Lerp(Vector3.Lerp(controlPoints[1], controlPoints[2], t), Vector3.Lerp(controlPoints[2], controlPoints[3], t), t));
+		}
+		
 	}
 
-	public float GetRot(float t)
-	{
-		Vector2 derivative = ((1 - t) * (1 - t) * 2 * (controlPoints[2] - controlPoints[1])) + 2 * t * (1 - t) * 2 * (controlPoints[3] - controlPoints[2]);
-		return 1;
-	}
 	//Everything after this will only execute outside of editor mode
 #if !UNITY_EDITOR
     

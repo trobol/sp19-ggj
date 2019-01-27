@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
-  gyserForce: 700
+  gyserForce: 1400
   ps: {fileID: 9005202081683583777}
   cam: {fileID: 0}
   zoomOut: 10
